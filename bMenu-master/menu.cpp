@@ -3,7 +3,7 @@
 using namespace std;
 
 // Variabel global
-int n;  // Untuk menyimpan jumlah data (misalnya)
+int n;  // Untuk menyimpan jumlah data
 int data[100];  // Array untuk menyimpan data
 
 // Fungsi untuk menampilkan menu
@@ -35,8 +35,18 @@ void tukar(int *a, int *b) {
 
 int main() {
     char pl;
+
+    // Input jumlah data
+    cout << "Masukkan jumlah data: ";
+    cin >> n;
+
+    // Cek validitas jumlah data
+    if (n <= 0 || n > 100) {
+        cout << "Jumlah data tidak valid!";
+        return 1;  // Keluar dari program jika input tidak valid
+    }
+
     // Inisialisasi variabel data
-    n = 5;  // Misalnya kita ingin mengisi 5 data
     for (int i = 0; i < n; ++i) {
         ::data[i] = i + 1;  // Mengisi data dengan nilai 1, 2, 3, ...
     }
