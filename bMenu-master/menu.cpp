@@ -1,6 +1,10 @@
 #include <iostream>
-#include <conio.h>
+#include <cstdlib>  // Untuk system("cls") di Windows
 using namespace std;
+
+// Variabel global
+int n;  // Untuk menyimpan jumlah data (misalnya)
+int data[100];  // Array untuk menyimpan data
 
 // Fungsi untuk menampilkan menu
 void dMenu() {
@@ -18,14 +22,46 @@ void dMenu() {
 void mPertama(string pesan) {
     system("cls");
     cout << "Hallo saya menu " << pesan;
-    getch();  // Menunggu input dari pengguna untuk melanjutkan
+    cout << "\nPress any key to continue...";
+    cin.get();  // Mengganti getch dengan cin.get()
+}
+
+// Fungsi untuk menukar dua nilai integer
+void tukar(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 int main() {
     char pl;
+    // Inisialisasi variabel data
+    n = 5;  // Misalnya kita ingin mengisi 5 data
+    for (int i = 0; i < n; ++i) {
+        ::data[i] = i + 1;  // Mengisi data dengan nilai 1, 2, 3, ...
+    }
+
+    // Menampilkan data sebelum ditukar
+    cout << "Data sebelum ditukar: ";
+    for (int i = 0; i < n; ++i) {
+        cout << ::data[i] << " ";  // Mengakses data global
+    }
+    cout << "\n";
+
+    // Menukar dua data (misalnya data[0] dan data[1])
+    tukar(&::data[0], &::data[1]);  // Mengakses data global
+
+    // Menampilkan data setelah ditukar
+    cout << "Data setelah ditukar: ";
+    for (int i = 0; i < n; ++i) {
+        cout << ::data[i] << " ";  // Mengakses data global
+    }
+    cout << "\n";
+
     do {
         dMenu();  // Menampilkan menu
-        pl = getch();  // Menunggu input dari pengguna
+        cin >> pl;  // Mengganti getch dengan cin untuk membaca input
+
         switch (pl) {
             case '1':
                 mPertama("pertama");
@@ -45,9 +81,10 @@ int main() {
             default:
                 system("cls");
                 cout << "Pilihan Tidak Tersedia";
-                getch();  // Menunggu input sebelum melanjutkan
+                cin.get();  // Menunggu input sebelum melanjutkan
                 break;
         }
     } while (pl != '5');  // Loop sampai pengguna memilih untuk keluar
+
     return 0;
 }
