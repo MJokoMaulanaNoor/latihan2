@@ -4,7 +4,7 @@ using namespace std;
 
 // Variabel global
 int n;                // Untuk menyimpan jumlah data
-int globalData[100];  // Mengganti nama array global untuk menghindari konflik
+int globalData[100];  // Array global untuk menyimpan data
 
 // Fungsi untuk menampilkan menu
 void dMenu() {
@@ -14,7 +14,8 @@ void dMenu() {
     cout << "2. Menu Kedua" << "\n";
     cout << "3. Menu Ketiga" << "\n";
     cout << "4. Menu Keempat" << "\n";
-    cout << "5. Exit" << "\n";
+    cout << "5. Tampilkan Data Array" << "\n";  // Tambahan opsi menu
+    cout << "6. Exit" << "\n";
     cout << "Masukan angka: ";
 }
 
@@ -60,6 +61,20 @@ void printData(const string &pesan) {
     cout << "\n";
 }
 
+// Fungsi tambahan untuk menampilkan data array dari menu
+void tampilkanDataArray() {
+    system("cls");
+    cout << "Menampilkan Data Array\n";
+    if (n > 0) {
+        printData("Data saat ini");
+    } else {
+        cout << "Array kosong, silakan masukkan data terlebih dahulu.\n";
+    }
+    cout << "Press any key to continue...";
+    cin.ignore();  // Bersihkan buffer
+    cin.get();
+}
+
 int main() {
     char pl;
 
@@ -95,6 +110,9 @@ int main() {
                 mPertama("ke- empat");
                 break;
             case '5':
+                tampilkanDataArray();  // Menampilkan data array
+                break;
+            case '6':
                 // Exit program
                 break;
             default:
@@ -103,7 +121,7 @@ int main() {
                 cin.get();
                 break;
         }
-    } while (pl != '5');
+    } while (pl != '6');
 
     return 0;
 }
