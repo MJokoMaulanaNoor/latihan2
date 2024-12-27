@@ -3,8 +3,8 @@
 using namespace std;
 
 // Variabel global
-int n;  // Untuk menyimpan jumlah data
-int data[100];  // Array untuk menyimpan data
+int n;                // Untuk menyimpan jumlah data
+int globalData[100];  // Mengganti nama array global untuk menghindari konflik
 
 // Fungsi untuk menampilkan menu
 void dMenu() {
@@ -33,44 +33,53 @@ void tukar(int *a, int *b) {
     *b = temp;
 }
 
-int main() {
-    char pl;
-
-    // Input jumlah data
+// Fungsi untuk input data ke array
+void inputData() {
     cout << "Masukkan jumlah data: ";
     cin >> n;
 
-    // Cek validitas jumlah data
     if (n <= 0 || n > 100) {
         cout << "Jumlah data tidak valid!";
-        return 1;  // Keluar dari program jika input tidak valid
+        exit(1);  // Keluar dari program jika input tidak valid
     }
 
-    // Inisialisasi variabel data
+    // Input data ke dalam array
+    cout << "Masukkan " << n << " data: \n";
     for (int i = 0; i < n; ++i) {
-        ::data[i] = i + 1;  // Mengisi data dengan nilai 1, 2, 3, ...
+        cout << "Data ke-" << i + 1 << ": ";
+        cin >> globalData[i];  // Menggunakan globalData untuk menghindari konflik
     }
+}
+
+// Fungsi untuk mencetak data dalam array
+void printData(const string &pesan) {
+    cout << pesan << ": ";
+    for (int i = 0; i < n; ++i) {
+        cout << globalData[i] << " ";  // Menggunakan globalData untuk mencetak
+    }
+    cout << "\n";
+}
+
+int main() {
+    char pl;
+
+    // Input data
+    inputData();
 
     // Menampilkan data sebelum ditukar
-    cout << "Data sebelum ditukar: ";
-    for (int i = 0; i < n; ++i) {
-        cout << ::data[i] << " ";  // Mengakses data global
-    }
-    cout << "\n";
+    printData("Data sebelum ditukar");
 
-    // Menukar dua data (misalnya data[0] dan data[1])
-    tukar(&::data[0], &::data[1]);  // Mengakses data global
+    // Menukar dua data (misalnya globalData[0] dan globalData[1])
+    if (n > 1) {
+        tukar(&globalData[0], &globalData[1]);  // Menukar data
+    }
 
     // Menampilkan data setelah ditukar
-    cout << "Data setelah ditukar: ";
-    for (int i = 0; i < n; ++i) {
-        cout << ::data[i] << " ";  // Mengakses data global
-    }
-    cout << "\n";
+    printData("Data setelah ditukar");
 
     do {
         dMenu();  // Menampilkan menu
-        cin >> pl;  // Mengganti getch dengan cin untuk membaca input
+        cin >> pl;
 
         switch (pl) {
             case '1':
@@ -91,10 +100,10 @@ int main() {
             default:
                 system("cls");
                 cout << "Pilihan Tidak Tersedia";
-                cin.get();  // Menunggu input sebelum melanjutkan
+                cin.get();
                 break;
         }
-    } while (pl != '5');  // Loop sampai pengguna memilih untuk keluar
+    } while (pl != '5');
 
     return 0;
 }
