@@ -14,8 +14,9 @@ void dMenu() {
     cout << "2. Menu Kedua" << "\n";
     cout << "3. Menu Ketiga" << "\n";
     cout << "4. Menu Keempat" << "\n";
-    cout << "5. Tampilkan Data Array" << "\n";  // Tambahan opsi menu
-    cout << "6. Exit" << "\n";
+    cout << "5. Tampilkan Data Array" << "\n";
+    cout << "6. Sorting Data ASC" << "\n";  // Tambahan opsi menu
+    cout << "7. Exit" << "\n";
     cout << "Masukan angka: ";
 }
 
@@ -75,6 +76,27 @@ void tampilkanDataArray() {
     cin.get();
 }
 
+// Fungsi untuk melakukan sorting data ASC
+void sortingDataASC() {
+    system("cls");
+    cout << "Melakukan Sorting Data ASC\n";
+
+    // Sorting dengan Bubble Sort
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (globalData[j] > globalData[j + 1]) {
+                tukar(&globalData[j], &globalData[j + 1]);  // Tukar jika urutan salah
+            }
+        }
+    }
+
+    cout << "Data telah diurutkan dalam urutan ascending.\n";
+    printData("Data setelah sorting");
+    cout << "Press any key to continue...";
+    cin.ignore();  // Bersihkan buffer
+    cin.get();
+}
+
 int main() {
     char pl;
 
@@ -113,6 +135,9 @@ int main() {
                 tampilkanDataArray();  // Menampilkan data array
                 break;
             case '6':
+                sortingDataASC();  // Sorting data ASC
+                break;
+            case '7':
                 // Exit program
                 break;
             default:
@@ -121,7 +146,7 @@ int main() {
                 cin.get();
                 break;
         }
-    } while (pl != '6');
+    } while (pl != '7');
 
     return 0;
 }
